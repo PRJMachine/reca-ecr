@@ -42,7 +42,7 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
-          pipenv install --deploy --venv
+          pipenv install --deploy --dev
           pipenv install -r requirements.txt
 
       - name: Build Docker image # 도커 이미지 빌드
