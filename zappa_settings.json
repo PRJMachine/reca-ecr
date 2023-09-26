@@ -3,7 +3,7 @@
         "app_function": "app.__init__.app",
         "aws_region": "ap-northeast-2",
         "project_name": "reca-ecr",
-        "runtime": "python3.8",
-        "s3_bucket": "zappa-vs1cn8ijn"
+        "runtime": "python3.11",
+        "s3_bucket": "zappa-7afa9nmsq"
     }
 }
