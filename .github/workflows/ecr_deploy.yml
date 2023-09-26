@@ -20,7 +20,8 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
       - name: Activate a virtual environment # 자파를 위한 가상환경 설치
         run: | # 커맨드라인 명령어를 사용할 수 있습니다
           python3 -m venv venv
-          .venv/bin/activate
+          ./venv/bin/activate
+          echo "VIRTUAL ENV:" $VIRTUAL_ENV
       - name: Install Python libraries with pip # pip로 파이썬 라이브러리 설치
         run: |
           pip3 install --upgrade pip
