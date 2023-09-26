@@ -19,30 +19,35 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
           python-version: 3.8 # 액션에서 파이썬 3.8 버전을 사용하도록 합니다
       - name: Activate a virtual environment # 자파를 위한 가상환경 설치
         run: | # 커맨드라인 명령어를 사용할 수 있습니다
-          python3 -m venv venv
-          ./venv/bin/activate
+          python3 -m venv env
+          ./env/bin/activate
           echo "VIRTUAL ENV:" $VIRTUAL_ENV
-      - name: Install Python libraries with pip # pip로 파이썬 라이브러리 설치
-        run: |
-          pip3 install --upgrade pip
-          pip3 install -r requirements.txt
-      - name: Build Docker image # 도커 이미지 빌드
-        run: docker build -t flask .
-      - name: Tag Docker image # 도커 이미지를 ECR 경로로 태그
-        run: docker tag flask $ECR_IMAGE_URI # 위에서 설정한 환경변수를 사용합니다
-      - name: Configure AWS credentials # AWS 계정 로그인
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: ap-northeast-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: Transfers authority from AWS ECR to Docker # AWS 계정 정보를 도커로 전달
-        run: >
-          aws ecr get-login-password |
-           docker login --username AWS --password-stdin $ECR_IMAGE_URI
-      - name: Push Docker image to AWS ECR # 도커 이미지를 ECR에 업로드
-        run: docker push $ECR_IMAGE_URI
-      - name: Save python settings for production with Zappa # 자파에 필요한 파일 세팅
-        run: zappa save-python-settings-file prod
-      - name: Deploy application from AWS ECR to Lambda with Zappa # 자파로 람다에 배포 완료
-        run: zappa update prod -d $ECR_IMAGE_URI
+          ls -R
+
+
+
+
+    #   - name: Install Python libraries with pip # pip로 파이썬 라이브러리 설치
+    #     run: |
+    #       pip3 install --upgrade pip
+    #       pip3 install -r requirements.txt
+    #   - name: Build Docker image # 도커 이미지 빌드
+    #     run: docker build -t flask .
+    #   - name: Tag Docker image # 도커 이미지를 ECR 경로로 태그
+    #     run: docker tag flask $ECR_IMAGE_URI # 위에서 설정한 환경변수를 사용합니다
+    #   - name: Configure AWS credentials # AWS 계정 로그인
+    #     uses: aws-actions/configure-aws-credentials@v1
+    #     with:
+    #       aws-region: ap-northeast-2
+    #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #   - name: Transfers authority from AWS ECR to Docker # AWS 계정 정보를 도커로 전달
+    #     run: >
+    #       aws ecr get-login-password |
+    #        docker login --username AWS --password-stdin $ECR_IMAGE_URI
+    #   - name: Push Docker image to AWS ECR # 도커 이미지를 ECR에 업로드
+    #     run: docker push $ECR_IMAGE_URI
+    #   - name: Save python settings for production with Zappa # 자파에 필요한 파일 세팅
+    #     run: zappa save-python-settings-file prod
+    #   - name: Deploy application from AWS ECR to Lambda with Zappa # 자파로 람다에 배포 완료
+    #     run: zappa update prod -d $ECR_IMAGE_URI
