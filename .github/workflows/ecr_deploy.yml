@@ -22,7 +22,9 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
           python3 -m venv env
           ./env/bin/activate
           echo "VIRTUAL ENV:" $VIRTUAL_ENV
+          pip install flask
           ls -R
+          
 
 
 
