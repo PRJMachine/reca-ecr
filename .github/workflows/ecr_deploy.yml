@@ -26,7 +26,8 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
         run: |
           source env/bin/activate
           pip3 install --upgrade pip
-          pip3 install -r requirements.txt
+          pip3 install zappa
+          # pip3 install -r requirements.txt
       - name: Build Docker image # 도커 이미지 빌드
         run: docker build -t flask .
       - name: Tag Docker image # 도커 이미지를 ECR 경로로 태그
