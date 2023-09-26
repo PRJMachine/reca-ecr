@@ -39,7 +39,8 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Transfers authority from AWS ECR to Docker # AWS 계정 정보를 도커로 전달
         run: >
-          aws ecr get-login-password docker login --username AWS --password-stdin $ECR_IMAGE_URI
+          aws ecr get-login-password |
+           docker login --username AWS --password-stdin $ECR_IMAGE_URI
       - name: Push Docker image to AWS ECR # 도커 이미지를 ECR에 업로드
         run: docker push $ECR_IMAGE_URI
       - name: Save python settings for production with Zappa # 자파에 필요한 파일 세팅
