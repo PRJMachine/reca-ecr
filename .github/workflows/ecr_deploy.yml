@@ -44,4 +44,4 @@ jobs: # 한 워크플로는 여러 병렬 실행 가능한 잡을 가질 수 있
       - name: Save python settings for production with Zappa # 자파에 필요한 파일 세팅
         run: zappa save-python-settings-file prod
       - name: Deploy application from AWS ECR to Lambda with Zappa # 자파로 람다에 배포 완료
-        run: zappa update prod -d $ECR_IMAGE_URI
+        run: zappa deploy prod -d $ECR_IMAGE_URI
