@@ -9,10 +9,6 @@ RUN pip3 install flask
 RUN pip3 install zappa
 # 자파도 설치해줍니다
 # 자파의 핸들러를 작업환경으로 빼주어야 람다가 인식해줍니다s
-RUN ZAPPA_HANDLER_PATH=$( \ 
-    python -c "from zappa import handler; print (handler.__file__)" \
-    ) \
-    && echo $ZAPPA_HANDLER_PATH \
-    && cp $ZAPPA_HANDLER_PATH ${FUNCTION_DIR}
+RUN ZAPPA_HANDLER_PATH=$( python -c "from zappa import handler; print (handler.__file__)" ) && echo $ZAPPA_HANDLER_PATH && cp $ZAPPA_HANDLER_PATH ${FUNCTION_DIR}
 CMD [ "handler.lambda_handler" ]
 # 플라스크 대신 이 핸들러를 실행해줍니다
